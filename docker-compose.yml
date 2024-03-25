@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  php_pw1:
+    image: php:8.3
+    volumes:
+      - ./app:/var/www/html
+    ports:
+      - 8000:80
+    command: php -S 0.0.0.0:80 -t /var/www/html
+
+  mysql_pw1:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
+
+  adminer_pw1:
+    image: adminer:latest
+    depends_on:
+      - mysql_pw1
+    ports:
+      - 8080:8080
